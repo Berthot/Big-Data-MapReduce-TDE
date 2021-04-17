@@ -24,6 +24,11 @@ The dataset has over 8 million instances (rows, or commercial transactions). The
 available in CSV format. Columns are separated by semi-colons (“;”). The image below exhibits the first 5
 rows of the dataset:
 
+country_or_area|year|comm_code|commodity|flow|trade_usd|weight_kg|quantity_name|quantity|category
+---|---|---|---|---|---|---|---|---|---|
+Afghanistan|2016|010410|Sheep, live|Export|6088|2339|Number of items|51|01_live_animals
+Brazil|2016|010210|Bovine animals, live pure-bred breeding|Export|374888|59132|Number of items|129|01_live_animals
+
 ![](https://i.imgur.com/yxzez4A.png)
 
 
