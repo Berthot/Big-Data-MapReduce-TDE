@@ -39,7 +39,7 @@ the company to answer the following demands:
 2. [x] The number of transactions per year;
 3. [x] The most commercialized commodity (summing the quantities) in 2016, per flow type.
 4. [x] The average of commodity values per year;
-5. [ ] The average price of commodities per unit type, year, and category in the export flow in
+5. [x] The average price of commodities per unit type, year, and category in the export flow in
     Brazil;
 6. [x] The commodity with the highest price per unit type and year;
 7. [x] The number of transactions per flow type and year.

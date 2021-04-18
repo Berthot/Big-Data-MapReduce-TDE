@@ -4,8 +4,10 @@ package TDE2
 import TDE2.Auxiliar.Attrs
 import TDE2.Auxiliar.CommercializedCommodityWritable
 import TDE2.Auxiliar.CommodityUnitTypePriceQtdWritable
+import TDE2.Auxiliar.OcorrencyAndPriceForAvgWritable
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
+import org.apache.hadoop.io.DoubleWritable
 import org.apache.hadoop.io.LongWritable
 import org.apache.hadoop.io.Text
 import org.apache.hadoop.mapreduce.Job
@@ -38,9 +40,9 @@ fun main() {
 
         // definicao dos tipos de saida
         mapOutputKeyClass = Text::class.java // chave de saida do map
-        mapOutputValueClass = CommodityUnitTypePriceQtdWritable::class.java// valor de saida do map
+        mapOutputValueClass = OcorrencyAndPriceForAvgWritable::class.java// valor de saida do map
         outputKeyClass = Text::class.java // chave de saida do reduce
-        outputValueClass = CommodityUnitTypePriceQtdWritable::class.java // valor de saida do reduce
+        outputValueClass = DoubleWritable::class.java // valor de saida do reduce
     }
 
     FileInputFormat.addInputPath(job, input)
@@ -56,37 +58,45 @@ private fun configureHadoop() {
     BasicConfigurator.configure()
 }
 
-class MapAvgPriceCommoditiesPerUnitYearCatExportFlowInBrazil : Mapper<LongWritable, Text, Text, CommodityUnitTypePriceQtdWritable>() {
+class MapAvgPriceCommoditiesPerUnitYearCatExportFlowInBrazil : Mapper<LongWritable, Text, Text, OcorrencyAndPriceForAvgWritable>() {
     override fun map(key: LongWritable, value: Text, con: Context) {
         val line = value.toString().toLowerCase()
         if (line.startsWith("country_or_area")) return
 
         val values = line.split(";")
-        if(values[Attrs.QUANTITY_NAME.value] == "no quantity") return
+        val country = values[Attrs.COUNTRY_OR_AREA.value]
+
+        if(country != "brazil") return
+
 
         val year = values[Attrs.YEAR.value]
-        val commodity = values[Attrs.COMM_CODE.value]
+        val category = values[Attrs.CATEGORY.value]
+        val flow = values[Attrs.FLOW.value]
         val unitType = values[Attrs.QUANTITY_NAME.value]
-        val price = values[Attrs.TRADE_USD.value].toLong()
-        val qty = values[Attrs.QUANTITY.value].toDouble().toLong()
+        val price = values[Attrs.TRADE_USD.value].toDouble()
+        val keyName = "${year}|${flow}|${category}|${unitType}"
+        val ocorrency: Double = 1.0
 
-        val dataObj = CommodityUnitTypePriceQtdWritable(commodity, price, qty)
-
-        con.write(Text("${year}-'${unitType}'"), dataObj)
+        con.write(Text(keyName), OcorrencyAndPriceForAvgWritable(ocorrency, price))
     }
 }
 
 class ReduceAvgPriceCommoditiesPerUnitYearCatExportFlowInBrazil :
-    Reducer<Text, CommodityUnitTypePriceQtdWritable, Text, CommodityUnitTypePriceQtdWritable>() {
+    Reducer<Text, OcorrencyAndPriceForAvgWritable, Text, DoubleWritable>() {
 
-    override fun reduce(key: Text, values: Iterable<CommodityUnitTypePriceQtdWritable>, con: Context) {
-        var pivot = CommodityUnitTypePriceQtdWritable()
+    override fun reduce(key: Text, values: Iterable<OcorrencyAndPriceForAvgWritable>, con: Context) {
+
+        var priceSum: Double = 0.0
+        var qtd: Double = 0.0
 
         values.forEach {
-            if(it.price > pivot.price)
-                pivot = it
+            priceSum += it.price
+            qtd += it.ocorrencia
         }
 
-        con.write(key, pivot)
+        val avg: Double = priceSum / qtd
+
+        con.write(key, DoubleWritable(avg))
+
     }
 }

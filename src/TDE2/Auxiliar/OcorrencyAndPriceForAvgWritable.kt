@@ -5,7 +5,7 @@ import java.io.DataOutput
 import java.util.*
 
 
-class AveragePricePerYearWritable: WritableComparable<AveragePricePerYearWritable>  {
+class OcorrencyAndPriceForAvgWritable: WritableComparable<OcorrencyAndPriceForAvgWritable>  {
 
     var ocorrencia: Double = 0.0
     var price: Double = 0.0
@@ -31,7 +31,7 @@ class AveragePricePerYearWritable: WritableComparable<AveragePricePerYearWritabl
         price = p0.readDouble()
     }
 
-    override fun compareTo(other: AveragePricePerYearWritable): Int {
+    override fun compareTo(other: OcorrencyAndPriceForAvgWritable): Int {
         return hashCode().compareTo(other.hashCode())
     }
 
@@ -39,7 +39,7 @@ class AveragePricePerYearWritable: WritableComparable<AveragePricePerYearWritabl
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as AveragePricePerYearWritable
+        other as OcorrencyAndPriceForAvgWritable
 
         if (ocorrencia != other.ocorrencia) return false
         if (price != other.price) return false
