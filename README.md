@@ -35,14 +35,14 @@ Brazil|2016|010210|Bovine animals, live pure-bred breeding|Export|374888|59132|N
 Given the aforementioned context, you are in charge of developing a set of solutions that allow
 the company to answer the following demands:
 
-1. The number of transactions involving Brazil;
-2. The number of transactions per year;
-3. The most commercialized commodity (summing the quantities) in 2016, per flow type.
-4. The average of commodity values per year;
-5. The average price of commodities per unit type, year, and category in the export flow in
+1. [x] The number of transactions involving Brazil;
+2. [x] The number of transactions per year;
+3. [x] The most commercialized commodity (summing the quantities) in 2016, per flow type.
+4. [x] The average of commodity values per year;
+5. [ ] The average price of commodities per unit type, year, and category in the export flow in
     Brazil;
-6. The commodity with the highest price per unit type and year;
-7. The number of transactions per flow type and year.
+6. [x] The commodity with the highest price per unit type and year;
+7. [x] The number of transactions per flow type and year.
 
 Given your knowledge and skills in Java and MapReduce, for each item above, provide:
 

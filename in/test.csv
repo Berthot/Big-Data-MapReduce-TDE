@@ -1,8 +1,6 @@
+0,1,2,3,4,5,6,7,8,9
 country_or_area,year,comm_code,commodity,flow,trade_usd,weight_kg,quantity_name,quantity,category
 Zimbabwe,2006,TOTAL,ALL COMMODITIES,Export,6427356520,,No Quantity,,all_commodities
-Zimbabwe,2006,TOTAL,ALL COMMODITIES,Re-Export,49480995,,No Quantity,,all_commodities
-Zimbabwe,2005,TOTAL,ALL COMMODITIES,Import,2072259499,,No Quantity,,all_commodities
-Zimbabwe,2005,TOTAL,ALL COMMODITIES,Export,1393602370,,No Quantity,,all_commodities
 Zimbabwe,2004,TOTAL,ALL COMMODITIES,Import,2203775543,,No Quantity,,all_commodities
 Albania,2016,010591,Fowls live domestic > 185 grams,Import,2421513,1926850,Number of items,1006990,01_live_animals
 Albania,2016,010599,Poultry live except domestic fowls > 185 grams,Import,251318,211177,Number of items,205124,01_live_animals
@@ -11,33 +9,16 @@ Albania,2015,010290,Bovine animals live except pure-bred breeding,Import,7264642
 Albania,2015,010391,Swine live except pure-bred breeding < 50 kg,Import,45843,29930,Number of items,795,01_live_animals
 Albania,2015,010392,Swine live except pure-bred breeding > 50 kg,Import,14031292,9439974,Number of items,93222,01_live_animals
 
-
-1988	61921906
-1989	48833139
-1990	50677781
-1991	59542787
-1992	52449474
-1993	48488895
-1994	50419931
-1995	53724974
-1996	53036384
-1997	50396085
-1998	47977121
-1999	46818988
-2000	55856166
-2001	53965653
-2002	57053000
-2003	64452523
-2004	77615984
-2005	85815025
-2006	98143856
-2007	113612846
-2008	135629949
-2009	104573761
-2010	126631958
-2011	152402021
-2012	150358691
-2013	156383248
-2014	158505957
-2015	139411852
-2016	137984606
+quantity_name
+Number of items
+No Quantity
+Weight in kilograms
+Volume in litres
+Length in metres
+Area in square metres
+Electrical energy in thousands of kilowatt-hours
+Volume in cubic meters
+Number of pairs
+Thousands of items
+Weight in carats
+Number of packages
