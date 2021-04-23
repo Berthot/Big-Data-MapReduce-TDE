@@ -1,5 +1,6 @@
 package TDE2
 
+import TDE2.Auxiliar.Attrs
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.IntWritable
@@ -57,7 +58,7 @@ class MapTransPerYear : Mapper<LongWritable, Text, Text, LongWritable>() {
         if (line.startsWith("country_or_area")) return
 
         val values = line.split(";")
-        val year = values[1]
+        val year = values[Attrs.YEAR.value]
 
         con.write(Text(year), LongWritable(1))
     }

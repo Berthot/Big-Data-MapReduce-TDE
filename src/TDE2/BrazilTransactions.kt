@@ -1,5 +1,6 @@
 package TDE2
 
+import TDE2.Auxiliar.Attrs
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.LongWritable
@@ -18,15 +19,15 @@ fun main() {
     configureHadoop()
 
     val configuration = Configuration()
-
+    val tdeName = "brazilTransaction"
     val input = Path("./in/transactions.csv")
-    val output = Path("./output/brazil.txt")
+    val output = Path("./output/${tdeName}.txt")
 
     // Deleta o folder de resultado antes de gerar um novo
     val outFile = File(output.toString())
     outFile.deleteRecursively()
 
-    val job = Job(configuration, "brazilTransaction").apply {
+    val job = Job(configuration, tdeName).apply {
 
         mapperClass = MapBrazil::class.java
         reducerClass = ReduceBrazil::class.java
@@ -58,11 +59,11 @@ class MapBrazil : Mapper<LongWritable, Text, Text, LongWritable>() {
 
         val values = line.split(";")
 
-        val country = values[0]
+        val country = values[Attrs.COUNTRY_OR_AREA.value]
 
 
         if (country == "brazil") {
-            con.write(Text("brazil"), LongWritable(1))
+            con.write(Text(country), LongWritable(1))
         }
     }
 }
